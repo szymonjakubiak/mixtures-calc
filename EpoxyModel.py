@@ -21,18 +21,25 @@ class EpoxMod():
         # Check if input is a float string
         if not self.checkInput(inputText):
             return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
+        # Check if input is not an empty string
+        if inputText == '':
+            return ['', '']
         
         # Assign input to inputString
         self.inputString = inputText
+        # Check number of digits in input
+        self.digitNumber = len(inputText)
         # Input string to float conversion
         self.inputNumber = float(self.inputString)
 
         # Calculate resin mass
         self.resinMass = self.inputNumber / (1 + self.resinRatio)
+        self.resinMass = round(self.resinMass, self.digitNumber)
         # Calculate activator mass
         self.activatorMass = self.inputNumber - self.resinMass
+        self.activatorMass = round(self.activatorMass, self.digitNumber)
 
-        return [self.resinMass, self.activatorMass]
+        return [str(self.resinMass), str(self.activatorMass)]
 
 
     def calculateOnResinMass(self, inputText):
@@ -45,6 +52,9 @@ class EpoxMod():
         # Check if input is a float string
         if not self.checkInput(inputText):
             return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
+        # Check if input is not an empty string
+        if inputText == '':
+            return ['', '']
             
         # Assign input to inputString
         self.inputString = inputText
@@ -53,10 +63,12 @@ class EpoxMod():
 
         # Calculate activator mass
         self.activatorMass = self.resinRatio * self.inputNumber
+        self.activatorMass = round(self.activatorMass, self.digitNumber)
         # Calculate total mass
         self.totalMass = self.activatorMass + self.inputNumber
+        self.totalMass = round(self.totalMass, self.digitNumber)
 
-        return [self.totalMass, self.activatorMass]
+        return [str(self.totalMass), str(self.activatorMass)]
 
     def calculateOnActivatorMass(self, inputText):
         """
@@ -68,6 +80,9 @@ class EpoxMod():
         # Check if input is a float string
         if not self.checkInput(inputText):
             return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
+        # Check if input is not an empty string
+        if inputText == '':
+            return ['', '']
             
         # Assign input to inputString
         self.inputString = inputText
@@ -76,16 +91,17 @@ class EpoxMod():
 
         # Calculate resin mass
         self.resinMass = self.inputNumber / self.resinRatio
+        self.resinMass = round(self.resinMass, self.digitNumber)
         # Calculate total mass
         self.totalMass = self.inputNumber + self.resinMass
+        self.totalMass = round(self.totalMass, self.digitNumber)
 
-        return [self.totalMass, self.resinMass]
+        return [str(self.totalMass), str(self.resinMass)]
     
 
 if __name__ == '__main__':
-    """Testing module"""
+    """Testing the module"""
     emod = EpoxMod()
-
 
     # Setting resin ratio
     emod.setResinRatio(1/9)
@@ -112,5 +128,6 @@ if __name__ == '__main__':
     
 """
 TODO:
+-Add check case for empty string ''
 -Move repeating checks out of EpoxMod class / implement separeted method
 """

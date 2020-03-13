@@ -16,9 +16,11 @@ def main():
     viewGui.show()
 
     # Create instances of the model and the controller
-    #modelEpoxy = EpoxMod
-    #guiController = EpoxContrl(argView=viewGui)
-    #guiController = epoxyController(model=modelEpoxy, view=viewGui)
+    modelEpoxy = EpoxMod()
+    guiController = EpoxContrl(argModel=modelEpoxy, argView=viewGui)
+
+    # Setting resin ratio
+    modelEpoxy.setResinRatio(1/9)
 
     # Execute app's main loop
     sys.exit(application.exec())
