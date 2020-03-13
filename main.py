@@ -16,7 +16,8 @@ def main():
     viewGui.show()
 
     # Create instances of the model and the controller
-    #modelEpoxy = ...
+    #modelEpoxy = EpoxMod
+    #guiController = EpoxContrl(argView=viewGui)
     #guiController = epoxyController(model=modelEpoxy, view=viewGui)
 
     # Execute app's main loop
