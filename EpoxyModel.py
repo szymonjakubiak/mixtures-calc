@@ -1,10 +1,24 @@
 class EpoxMod():
-    def checkInput(self, inputText):
-        """Checks if input is a valid number and returns Bool"""
-        for letter in inputText:
-            if letter not in list('0123456789.'):
-                return False
-        return True
+
+    def inputCheck(self, inputText):
+        """
+        Check if input is a valid string
+
+        returns [Bool, [str1,str2]], where:
+        Bool - is input text a number
+        str1,2 - inputs for other QLineEdits
+        """
+        # Check if input is not an empty string
+        if inputText == '':
+            return [False, ['', '']]
+        # Check if input is a valid number
+        try:
+            floatText = float(inputText)
+        except ValueError:
+            # List of outputs for the other QLineEdits
+            return [False, ['NOT_A_NUMBER', 'NOT_A_NUMBER']]
+        # Return 'True' if conversion ended with successs, output ['empty','empty'] is not used anywhere
+        return [True, ['empty','empty']]
 
     def setResinRatio(self, inputResinRatio):
         """Setting ResinRatio = activatorMass / resinMass"""
@@ -18,12 +32,9 @@ class EpoxMod():
 
         output = [resinMass, activatorMass]
         """
-        # Check if input is a float string
-        if not self.checkInput(inputText):
-            return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
-        # Check if input is not an empty string
-        if inputText == '':
-            return ['', '']
+        [isValidNumber, outputList] = self.inputCheck(inputText)
+        if not isValidNumber:
+            return outputList
         
         # Assign input to inputString
         self.inputString = inputText
@@ -49,12 +60,9 @@ class EpoxMod():
         output = [totalMass, activatorMass]
         """
         
-        # Check if input is a float string
-        if not self.checkInput(inputText):
-            return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
-        # Check if input is not an empty string
-        if inputText == '':
-            return ['', '']
+        [isValidNumber, outputList] = self.inputCheck(inputText)
+        if not isValidNumber:
+            return outputList
             
         # Assign input to inputString
         self.inputString = inputText
@@ -77,12 +85,9 @@ class EpoxMod():
         output = [totalMass, resinMass]
         """
         
-        # Check if input is a float string
-        if not self.checkInput(inputText):
-            return ['INPUT_NOT_A_NUMBER', 'INPUT_NOT_A_NUMBER']
-        # Check if input is not an empty string
-        if inputText == '':
-            return ['', '']
+        [isValidNumber, outputList] = self.inputCheck(inputText)
+        if not isValidNumber:
+            return outputList
             
         # Assign input to inputString
         self.inputString = inputText
@@ -97,7 +102,6 @@ class EpoxMod():
         self.totalMass = round(self.totalMass, self.digitNumber)
 
         return [str(self.totalMass), str(self.resinMass)]
-    
 
 if __name__ == '__main__':
     """Testing the module"""
@@ -125,9 +129,19 @@ if __name__ == '__main__':
     print(emod_out)
     emod_out = emod.calculateOnActivatorMass('1.0')
     print(emod_out)
+
+    #Check input-checking method
+    [bol, vals] = emod.inputCheck('12.1')
+    print(bol)
+    print(vals)
+    [bol, vals] = emod.inputCheck('12.1a')
+    print(bol)
+    print(vals)
+    [bol, vals] = emod.inputCheck('')
+    print(bol)
+    print(vals)
     
 """
 TODO:
--Add check case for empty string ''
--Move repeating checks out of EpoxMod class / implement separeted method
+
 """
