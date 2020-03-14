@@ -143,5 +143,5 @@ if __name__ == '__main__':
     
 """
 TODO:
-
+-Redefine model, instead of 3 separate functions add 1: solving system of linear equations (rectangular matrix [2x3], but 1 unknown is set a priori)
 """
