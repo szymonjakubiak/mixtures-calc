@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget
-from PyQt5.QtWidgets import QLineEdit, QHBoxLayout, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QLineEdit, QHBoxLayout, QVBoxLayout, QLabel, QGridLayout
 from PyQt5.QtCore import Qt
 
 class EpoxUi(QMainWindow):
@@ -15,47 +15,46 @@ class EpoxUi(QMainWindow):
         self.centralWidget.setLayout(self.generalMainLayout)
         self.setCentralWidget(self.centralWidget)
 
-        # Create particular parts of the GUI
+        # Creating particular parts of the GUI
+        ### INPUT REGION ####
         self.buildInputRegion()
+         # Adding inputGeneralLayout to general layout for mainWindow
+        self.generalMainLayout.addLayout(self.inputGeneralLayout)
+
+        ### DROP DOWN LIST ###
         #self.buildDropDownList()
         
         # Load data from default file
         #self.loadDataFromDefault()
 
-    def buildInputRegion(self):
-        # Creating dictionary with QWidgets for input area
-        self.inputWidgetsDictionary = {}
+    def buildInputRegion(self, numberOfComponents=2):
+        # Creating lists with QWidgets for input area
+        self.inputQLineEdits = []
+        self.inputQLabelList = []
 
-        # Creating QLineEdit and QLabel for every input box
-        self.inputWidgetsDictionary['wTotalMass'] = [QLineEdit(), QLabel()]
-        self.inputWidgetsDictionary['wResinMass'] = [QLineEdit(), QLabel()]
-        self.inputWidgetsDictionary['wActivatorMass'] = [QLineEdit(), QLabel()]
-        #...[0] - QLineEdit
-        #...[1] - QLabel
+        # Creating QLineEdit and QLabel for every input box,  =numberOfComponents + 1
+        for componentIndex in range(numberOfComponents+1):
+           # +1, TotalMass's window included
+           self.inputQLineEdits.append(QLineEdit())
+           self.inputQLabelList.append(QLabel())
 
         # Setting text for input labels
-        self.inputWidgetsDictionary['wTotalMass'][1].setText('Total mass')
-        self.inputWidgetsDictionary['wResinMass'][1].setText('Resin mass')
-        self.inputWidgetsDictionary['wActivatorMass'][1].setText('Activator mass')
+        self.inputQLabelList[0].setText('Total Mass') # First label
+        for number, qLabel in enumerate(self.inputQLabelList[1:], start=1): # Other labels
+            qLabel.setText('Component {} Mass'.format(number))
+
+        # Setting text allignment for every line edit
+        for qLineEdit in self.inputQLineEdits:
+            qLineEdit.setAlignment(Qt.AlignLeft)
 
         # General layout for input area
-        self.inputGeneralLayout = QHBoxLayout()
+        self.inputGeneralLayout = QGridLayout()
 
-        # Loop over every input 'box'
-        for inputWidgetName in self.inputWidgetsDictionary:
-            # Setting text allignment for every line edit
-            self.inputWidgetsDictionary[inputWidgetName][0].setAlignment(Qt.AlignLeft)
+        # Setting layout for input area
+        for columnNumber in range(numberOfComponents+1):
+            # Assigning shorter names
+            qLineEdit = self.inputQLineEdits[columnNumber]
+            qLabel = self.inputQLabelList[columnNumber]
 
-            # Add QVBoxLayout for every 'lineEdit-label' pair
-            pair = QVBoxLayout()
-            pair.addWidget(self.inputWidgetsDictionary[inputWidgetName][0])
-            pair.addWidget(self.inputWidgetsDictionary[inputWidgetName][1])
-            self.inputWidgetsDictionary[inputWidgetName].append(pair)
-            #...[2] - QVBoxLayout
-
-            # Adding every pairLayout to input area layout
-            self.inputGeneralLayout.addLayout(pair)
-
-        # Adding inputGeneralLayout to general layout for mainWindow
-        self.generalMainLayout.addLayout(self.inputGeneralLayout)
-        
+            self.inputGeneralLayout.addWidget(qLineEdit, 0, columnNumber)
+            self.inputGeneralLayout.addWidget(qLabel, 1, columnNumber)
