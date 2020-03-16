@@ -25,6 +25,7 @@ class EpoxMod():
         inputText - text send by triggered QLineEdit
         widgetIndex - index of triggered QLineEdit
         """
+<<<<<<< HEAD
         # Check for empty string
         if inputText == '':
             return numberOfWidgets * ['']
@@ -62,3 +63,66 @@ class EpoxMod():
                 outputStrings[index] = inputText
 
         return outputStrings
+=======
+        
+        [isValidNumber, outputList] = self.inputCheck(inputText)
+        if not isValidNumber:
+            return outputList
+            
+        # Assign input to inputString
+        self.inputString = inputText
+        # Input string to float conversion
+        self.inputNumber = float(self.inputString)
+
+        # Calculate resin mass
+        self.resinMass = self.inputNumber / self.resinRatio
+        self.resinMass = round(self.resinMass, self.digitNumber)
+        # Calculate total mass
+        self.totalMass = self.inputNumber + self.resinMass
+        self.totalMass = round(self.totalMass, self.digitNumber)
+
+        return [str(self.totalMass), str(self.resinMass)]
+
+if __name__ == '__main__':
+    """Testing the module"""
+    emod = EpoxMod()
+
+    # Setting resin ratio
+    emod.setResinRatio(1/9)
+    #emod.setResinRatio('a')
+    #emod.setResinRatio(-3.0)
+
+    # Calculate masses based on TotalMass
+    emod_out = emod.calculateOnTotalMass('12.333330000a')
+    print(emod_out)
+    emod_out = emod.calculateOnTotalMass('10')
+    print(emod_out)
+
+    # Calculate masses based on ResinMass
+    emod_out = emod.calculateOnResinMass('12.333330000a')
+    print(emod_out)
+    emod_out = emod.calculateOnResinMass('9.0')
+    print(emod_out)
+
+     # Calculate masses based on ActivatorMass
+    emod_out = emod.calculateOnActivatorMass('12.333330000a')
+    print(emod_out)
+    emod_out = emod.calculateOnActivatorMass('1.0')
+    print(emod_out)
+
+    #Check input-checking method
+    [bol, vals] = emod.inputCheck('12.1')
+    print(bol)
+    print(vals)
+    [bol, vals] = emod.inputCheck('12.1a')
+    print(bol)
+    print(vals)
+    [bol, vals] = emod.inputCheck('')
+    print(bol)
+    print(vals)
+    
+"""
+TODO:
+-Redefine model, instead of 3 separate functions add 1: solving system of linear equations (rectangular matrix [2x3], but 1 unknown is set a priori)
+"""
+>>>>>>> devDropDown
