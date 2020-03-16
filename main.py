@@ -18,7 +18,7 @@ def main():
     
     # Create instances of the model and the controller
     modelEpoxy = EpoxMod()
-    #guiController = EpoxContrl(argModel=modelEpoxy, argView=viewGui)
+    guiController = EpoxContrl(argModel=modelEpoxy, argView=viewGui)
 
     # Setting resin ratio
     modelEpoxy.setResinRatios([1,9])

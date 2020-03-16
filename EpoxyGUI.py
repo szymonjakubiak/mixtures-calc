@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget
-from PyQt5.QtWidgets import QLineEdit, QHBoxLayout, QVBoxLayout, QLabel, QGridLayout
+from PyQt5.QtWidgets import QLineEdit, QVBoxLayout, QLabel, QGridLayout
 from PyQt5.QtCore import Qt
 
 class EpoxUi(QMainWindow):

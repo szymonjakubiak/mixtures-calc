@@ -1,4 +1,4 @@
-from EpoxyGUI import EpoxUi
+from functools import partial
 
 class EpoxContrl():
     """EpoxyApp Controller Class"""
@@ -8,40 +8,19 @@ class EpoxContrl():
         self.connectSignals()
     
     def connectSignals(self):
-        """Connects specific signals to its slots by calling corresponding 'handle' method"""
-        # Assing shorter names to QLineEdits
-        wTotalMass = self.view.inputWidgetsDictionary['wTotalMass'][0]
-        wResinMass = self.view.inputWidgetsDictionary['wResinMass'][0]
-        wActivatorMass = self.view.inputWidgetsDictionary['wActivatorMass'][0]
+        """Connects specific signals to its slots"""
 
-        # Calling method on specific signal
-        wTotalMass.textEdited.connect(self.handleTotalMass)
-        wResinMass.textEdited.connect(self.handleResinMass)
-        wActivatorMass.textEdited.connect(self.handleActivatorMass)
+        # Load a list of QLineEdits
+        allLineEdits = self.view.getAllLineEdits()
+        # Connect every 'textEdit' signal to handleTextEditOnIndex function with widgetIndex as an argument
+        for index, lineEdit in enumerate(allLineEdits):
+            lineEdit.textEdited.connect(partial(self.handleTextEditOnIndex, lineEdit, index, len(allLineEdits)))
 
-    def handleTotalMass(self):
-        # Get current text
-        currentText = self.view.inputWidgetsDictionary['wTotalMass'][0].text()
-        # Calculating output for the other two QLineEdits
-        outputList = self.model.calculateOnTotalMass(currentText)
-        # Assigning new text to QLineEdits
-        self.view.inputWidgetsDictionary['wResinMass'][0].setText(outputList[0])
-        self.view.inputWidgetsDictionary['wActivatorMass'][0].setText(outputList[1])
-
-    def handleResinMass(self):
-        # Get current text
-        currentText = self.view.inputWidgetsDictionary['wResinMass'][0].text()
-        # Calculating output for the other two QLineEdits
-        outputList = self.model.calculateOnResinMass(currentText)
-        # Assigning new text to QLineEdits
-        self.view.inputWidgetsDictionary['wTotalMass'][0].setText(outputList[0])
-        self.view.inputWidgetsDictionary['wActivatorMass'][0].setText(outputList[1])
-    
-    def handleActivatorMass(self):
-        # Get current text
-        currentText = self.view.inputWidgetsDictionary['wActivatorMass'][0].text()
-        # Calculating output for the other two QLineEdits
-        outputList = self.model.calculateOnActivatorMass(currentText)
-        # Assigning new text to QLineEdits
-        self.view.inputWidgetsDictionary['wTotalMass'][0].setText(outputList[0])
-        self.view.inputWidgetsDictionary['wResinMass'][0].setText(outputList[1])
+    def handleTextEditOnIndex(self, lineEdit, widgetIndex, numberOfWidgets):
+        """When specific lineEdit is triggered, generate and set output for other widgets"""
+        # Getting text from the triggered lineEdit
+        currentText = lineEdit.text()
+        # Calculating output for all lineEdits
+        outputList = self.model.calculateOnIndex(currentText, widgetIndex, numberOfWidgets)
+        # Setting calculated output
+        self.view.setAllLineEditsText(outputList)

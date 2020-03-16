@@ -53,7 +53,7 @@ class EpoxMod():
 
         # Convert every float to string
         outputStrings = numberOfWidgets * ['']
-        for index, fValue in enumerate(outputFloats, start=0):
+        for index in range(len(outputFloats)):
             # Float -> String conversion
             if not index == widgetIndex:
                 outputStrings[index] = str(outputFloats[index])
@@ -62,13 +62,3 @@ class EpoxMod():
                 outputStrings[index] = inputText
 
         return outputStrings
-
-if __name__ == '__main__':
-    """Testing the module"""
-    emod = EpoxMod()
-
-
-"""
-TODO:
-
-"""
