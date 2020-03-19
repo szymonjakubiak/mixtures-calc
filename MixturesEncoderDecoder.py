@@ -19,6 +19,10 @@ class MixturesEncoderDecoder():
         # Type conversion str -> int
         recentRatios = list(map(int,recentRatios))
 
+        # Calculating total mass
+        totalMass = sum(recentRatios)
+        recentRatios = [totalMass] + recentRatios
+
         return [recentRatios, recentLabels]
 
     def encodeData(self, ratios, labels):

@@ -68,6 +68,9 @@ class EpoxContrl():
         # Build inputRegion based on a new data
         inputRegion = self.view.getInputBoxes()
         # Set new number of inputBoxes
-        inputRegion.buildInputRegion(newInputWidgetsNumber)
+        inputRegion.buildInputRegion(newInputWidgetsNumber-1)
         # Set new Labels
         inputRegion.setAllLabels(newLabels)
+
+        #IMPORTANT recreate connections for newly build widgets
+        self.connectLineEditsSignals()

@@ -10,11 +10,6 @@ class EpoxMod():
         # Handles string <-> data coding
         self.mixturesCoder = MixturesEncoderDecoder()
 
-        """
-        stringList = self.fileOperator.readFromFile()
-        [self.resinRatiosList, self.labelsList] = self.mixturesCoder.decodeString(stringList)
-        """
-
         # List for storing recently decoded labels
         self.labelsList = []
         # List for storing mixtue's ratio recently in use
@@ -33,26 +28,13 @@ class EpoxMod():
         """Returns a list of recently decoded labels"""
         return self.labelsList
 
-    def setResinRatios(self, inputResinRatios):
-        """
-        Setting ResinRatio, for example mixture 1:9
-        inputResinRatios = [1, 9] -> resinRatiosList = [10, 1, 9]
-        """
-        self.resinRatiosList = []
-        # First element == total mass
-        self.resinRatiosList.append(0)
-        for number in inputResinRatios:
-            # Calculating total mass
-            self.resinRatiosList[0] = self.resinRatiosList[0] + number
-            # Appending componenets' 'fractions'
-            self.resinRatiosList.append(number)
-
     def calculateOnIndex(self, inputText, widgetIndex, numberOfWidgets):
         """
         Returns a list of strings for every QLineEdit
         inputText - text send by triggered QLineEdit
         widgetIndex - index of triggered QLineEdit
         """
+      
         # Check for empty string
         if inputText == '':
             return numberOfWidgets * ['']
