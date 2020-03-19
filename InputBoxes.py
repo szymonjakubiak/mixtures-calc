@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QLineEdit, QLabel, QGridLayout
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QObjectCleanupHandler
 
 class InputBoxes():
     """Class configuring input region for GUI"""
@@ -8,12 +9,21 @@ class InputBoxes():
         # General layout for input area
         self.inputGeneralLayout = QGridLayout()
 
+        # Creating lists with QWidgets for input area
+        self.inputQLineEdits = []
+        self.inputQLabelList = []
+
         # Building input region with default widgets number
         self.buildInputRegion()
 
     def buildInputRegion(self, numberOfComponents=2):
         """Builds inputRegion for a given number of Mixture's components"""
-        # Creating lists with QWidgets for input area
+        # Remove previous widgets from the inputRegion
+        for lineEdit, label in zip(self.inputQLineEdits, self.inputQLabelList):
+            # QObjectCleanupHandler destroys widgets after getting out of this scope
+            QObjectCleanupHandler().add(lineEdit)
+            QObjectCleanupHandler().add(label)
+        # Empty the lists
         self.inputQLineEdits = []
         self.inputQLabelList = []
 
@@ -52,6 +62,7 @@ class InputBoxes():
     def setAllLineEditsText(self, textList):
         """Set text in all line edits based on input textList"""
         # Check if lists' lengths are equal
+
         if len(textList) == len(self.inputQLineEdits):
             # Assign text to every QLineEdit
             for qLineEdit, text in zip(self.inputQLineEdits, textList):
@@ -63,9 +74,10 @@ class InputBoxes():
     def setAllLabels(self, textList):
         """Set the text for every QLabel"""
         # Check if lists' lengths are equal
-        if len(textList) == len(self.inputQLabelList):
+
+        if len(textList) == len(self.inputQLabelList) - 1:
             # Assign text to every QLabel
-            for qLabel, text in zip(self.inputQLabelList, textList):
+            for qLabel, text in zip(self.inputQLabelList[1:], textList):
                 qLabel.setText(text)
         # If input textList has incorrect length
         else:

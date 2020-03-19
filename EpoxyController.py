@@ -55,4 +55,19 @@ class EpoxContrl():
 
     def handleComboIndexChange(self, qComboBox):
         """Handles an event when combo box changes its index"""
-        pass
+        # Get current text from QComboBox
+        currentText = qComboBox.currentText()
+
+        # Set the model with a new data
+        self.model.setModelData(currentText)
+
+        # Get new set of labels & size
+        newLabels = self.model.getLabels()
+        newInputWidgetsNumber = self.model.getModelSize()
+
+        # Build inputRegion based on a new data
+        inputRegion = self.view.getInputBoxes()
+        # Set new number of inputBoxes
+        inputRegion.buildInputRegion(newInputWidgetsNumber)
+        # Set new Labels
+        inputRegion.setAllLabels(newLabels)

@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.QtWidgets import QVBoxLayout
-from PyQt5.QtWidgets import QComboBox
 
 from DropDownMenu import DropDownMenu
 from InputBoxes import InputBoxes
