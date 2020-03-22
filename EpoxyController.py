@@ -4,9 +4,10 @@ from FileOperator import FileOperator
 
 class EpoxContrl():
     """EpoxyApp Controller Class"""
-    def __init__(self, argView, argModel):
+    def __init__(self, argView, argModel, argDialog):
         self.view = argView
         self.model = argModel
+        self.dialog = argDialog
         
         # Handles operations on files
         self.fileOperator = FileOperator()
@@ -14,6 +15,7 @@ class EpoxContrl():
         # Connect signals
         self.connectLineEditsSignals()
         self.connectDropDownSelection()
+        self.connectAddRemoveButtons()
     
     def loadDefaultData(self):
         """Loads default data into model & updates GUI"""
@@ -42,6 +44,20 @@ class EpoxContrl():
 
         # Delegate signal to a specific method
         comboBox.currentIndexChanged.connect(partial(self.handleComboIndexChange, comboBox))
+
+    def connectAddRemoveButtons(self):
+        """Connects 'Add' and 'Remove' buttons' signals"""
+        # Get buttons from DropDownMenu
+        dropDownMenu = self.view.getDropDownMenu()
+        addButton = dropDownMenu.getAddButton()
+        #removeButton = dropDownMenu.getRemoveButton()
+
+        # Connect 'Add' button so it executes Pop-up window
+        addButton.clicked.connect(self.dialog.exec)
+
+        # Connect 'Remove' button
+        # .............. to be continued ..........
+
 
     def handleTextEditOnIndex(self, lineEdit, widgetIndex, numberOfWidgets):
         """When specific lineEdit is triggered, generate and set output for other widgets"""

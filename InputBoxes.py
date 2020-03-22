@@ -34,9 +34,9 @@ class InputBoxes():
             self.inputQLabelList.append(QLabel())
 
         # Setting text for input labels
-        self.inputQLabelList[0].setText('Total Mass') # First label
+        self.inputQLabelList[0].setText('TotalMass') # First label
         for number, qLabel in enumerate(self.inputQLabelList[1:], start=1): # Other labels
-            qLabel.setText('Component {} Mass'.format(number))
+            qLabel.setText('Component{}Mass'.format(number))
 
         # Setting text allignment for every line edit
         for qLineEdit in self.inputQLineEdits:
