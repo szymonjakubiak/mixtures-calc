@@ -16,6 +16,7 @@ class EpoxContrl():
         self.connectLineEditsSignals()
         self.connectDropDownSelection()
         self.connectAddRemoveButtons()
+        self.connectSpinBoxSelector()
     
     def loadDefaultData(self):
         """Loads default data into model & updates GUI"""
@@ -58,6 +59,13 @@ class EpoxContrl():
         # Connect 'Remove' button
         # .............. to be continued ..........
 
+    def connectSpinBoxSelector(self):
+        """Connects SpinBox selection, so that it builds a new CompInputBoxes"""
+        # Get SpinBox from PopUpMixtureUi
+        spinBox = self.dialog.getSpinBox()
+
+        # Connect the signal to handler method
+        spinBox.valueChanged.connect(partial(self.handleSpinBoxChanged, spinBox))
 
     def handleTextEditOnIndex(self, lineEdit, widgetIndex, numberOfWidgets):
         """When specific lineEdit is triggered, generate and set output for other widgets"""
@@ -90,3 +98,15 @@ class EpoxContrl():
 
         #IMPORTANT recreate connections for newly build widgets
         self.connectLineEditsSignals()
+
+    def handleSpinBoxChanged(self, spinBox):
+        """Handles creation of a new set of QLineEdits for mixtures data, after the QSpinBox changes its value"""
+        # Get a new number of components (in SpinBox)
+        newNumber = spinBox.value()
+
+        # Build CompInputBoxes based on the new number
+        inputBoxes = self.dialog.getInputBoxes()
+        inputBoxes.buildCompInputRegion(newNumber)
+
+        # Recreating connections
+        # ........... to be continued .................

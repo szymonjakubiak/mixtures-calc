@@ -35,6 +35,10 @@ class PopUpMixtureUi (QDialog):
         # Attach 'Cancel' and 'Ok' buttons
         self.generalComponentsLayout.addWidget(self.standardButtons)
 
+        # Customize QSpinBox
+        self.componentsNumberSelector.setMaximum(10)
+        self.componentsNumberSelector.setMinimum(2)
+
     def getInputBoxes(self):
         """Returns the current instance of CompInputBoxes"""
         return self.componentsInputBoxes
@@ -46,3 +50,5 @@ class PopUpMixtureUi (QDialog):
     def getStandardButtons(self):
         """Returns standard QDialog buttons - 'Cancel, 'Ok' (QDialogButtonBox)"""
         return self.standardButtons
+
+    
