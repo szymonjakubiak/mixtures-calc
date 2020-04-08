@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QLineEdit, QGridLayout
 from PyQt5.QtCore import QObjectCleanupHandler
 from PyQt5.QtCore import Qt
+from PyQt5.Qt import QIntValidator, QRegularExpressionValidator, QRegularExpression
 
 class CompInputBoxes():
     """Handles a creation of text input area (ratios & components' names)"""
@@ -41,6 +42,20 @@ class CompInputBoxes():
         for index, (nameEdit, ratioEdit) in enumerate(zip(self.compNameLineEdits, self.compRatioLineEdits)):
             self.compInputLayout.addWidget(nameEdit, index, 0)
             self.compInputLayout.addWidget(ratioEdit, index, 1)
+
+        # Setting placeholder text for every QLineEdit and QValidators
+        # Preparing validators
+        ratioValidator = QIntValidator()
+        nameValidator = QRegularExpressionValidator()
+        nameValidator.setRegularExpression(QRegularExpression(r"[\w\d]*"))
+        for index, (nameEdit, ratioEdit) in enumerate(zip(self.compNameLineEdits, self.compRatioLineEdits), start=1):
+            strIndex = str(index)
+            # Setting placeholders
+            nameEdit.setPlaceholderText("Name " + strIndex)
+            ratioEdit.setPlaceholderText("Ratio " + strIndex)
+            # Setting validators
+            nameEdit.setValidator(nameValidator)
+            ratioEdit.setValidator(ratioValidator)
 
     def attachCompInputBoxes(self, generalLayout):
         """Adds compInputLayout to general layout of QDialog window"""
