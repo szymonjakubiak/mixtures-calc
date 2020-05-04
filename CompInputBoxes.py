@@ -65,3 +65,17 @@ class CompInputBoxes():
     def getAllLineEdits(self):
         """Rturns [[nameLineEdit,], [ratioLineEdit,]]"""
         return [self.compNameLineEdits, self.compRatioLineEdits]
+
+    def getAllLineEditsData(self):
+        """Returns a list [[ratios,], [names,]]"""
+        ratiosList = []
+        namesList = []
+
+        # Getting text from every QLineEdit
+        for ratioEdit, nameEdit in zip(self.compRatioLineEdits, self.compNameLineEdits):
+            # Ratios
+            ratiosList.append(int(ratioEdit.text()))
+            # Names
+            namesList.append(nameEdit.text())
+
+        return [ratiosList, namesList]

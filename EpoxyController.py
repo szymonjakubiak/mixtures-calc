@@ -17,6 +17,7 @@ class EpoxContrl():
         self.connectDropDownSelection()
         self.connectAddRemoveButtons()
         self.connectSpinBoxSelector()
+        self.connectCancelOk()
     
     def loadDefaultData(self):
         """Loads default data into model & updates GUI"""
@@ -67,6 +68,13 @@ class EpoxContrl():
         # Connect the signal to handler method
         spinBox.valueChanged.connect(partial(self.handleSpinBoxChanged, spinBox))
 
+    def connectCancelOk(self):
+        """Dialog signals: accepted() ('Ok' pressed) and rejected() ('Cancel' pressed)"""
+        # Connect 'Ok'
+        self.dialog.accepted.connect(self.handleDialogOk)
+        # Connect 'Cancel'
+        self.dialog.rejected.connect(self.handleDialogCancel)
+
     def handleTextEditOnIndex(self, lineEdit, widgetIndex, numberOfWidgets):
         """When specific lineEdit is triggered, generate and set output for other widgets"""
         # Getting text from the triggered lineEdit
@@ -108,5 +116,31 @@ class EpoxContrl():
         inputBoxes = self.dialog.getInputBoxes()
         inputBoxes.buildCompInputRegion(newNumber)
 
-        # Recreating connections
-        # ........... to be continued .................
+    def handleDialogCancel(self):
+        """Closes pop-up window and performs cleaning"""
+        self.cleanDialogBox()
+
+    def handleDialogOk(self):
+        """Load user input into a model and clean pop-up window"""
+        # Get input data entered by a user
+        inputData = self.dialog.getInputBoxes().getAllLineEditsData()
+        # Encode the input
+        encoder = self.model.getEncoder()
+        dataString = encoder.encodeData(inputData[0], inputData[1])
+        # Add encoded data to the end of the drop-down menu
+        dropDownMenu = self.view.getDropDownMenu()
+        comboBox = dropDownMenu.getQComboBox()
+        comboBox.addItem(dataString)
+
+        # Cleaning
+        self.cleanDialogBox()
+
+    def cleanDialogBox(self):
+        """Returns pop-up window to its default shape"""
+        # Rebuild CompInputBoxes to its default shape
+        inputBoxes = self.dialog.getInputBoxes()
+        inputBoxes.buildCompInputRegion()
+        # Change spin box number to default=2
+        spinBox = self.dialog.getSpinBox()
+        spinBox.setValue(2)
+

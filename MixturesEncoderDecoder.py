@@ -2,7 +2,6 @@ class MixturesEncoderDecoder():
     """Class for operations on data strings"""
     def __init__(self):
         """Default MixturesEncoderDecoder constructor"""
-        pass
 
     def decodeString(self, inputText):
         """Decodes a string to data readable by the model"""

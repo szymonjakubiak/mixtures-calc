@@ -72,3 +72,7 @@ class EpoxMod():
                 outputStrings[index] = inputText
 
         return outputStrings
+
+    def getEncoder(self):
+        """Returns EncoderDecoder used by EpoxMod"""
+        return self.mixturesCoder

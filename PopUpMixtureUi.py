@@ -39,6 +39,10 @@ class PopUpMixtureUi (QDialog):
         self.componentsNumberSelector.setMaximum(10)
         self.componentsNumberSelector.setMinimum(2)
 
+        # Setting basic dialog buttons functionality
+        self.standardButtons.rejected.connect(self.reject)
+        self.standardButtons.accepted.connect(self.accept)
+
     def getInputBoxes(self):
         """Returns the current instance of CompInputBoxes"""
         return self.componentsInputBoxes
