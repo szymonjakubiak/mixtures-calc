@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QMenuBar, QMenu
+from PyQt5.QtWidgets import QAction
 
 from DropDownMenu import DropDownMenu
 from InputBoxes import InputBoxes
@@ -18,6 +20,19 @@ class EpoxUi(QMainWindow):
         self.centralWidget.setLayout(self.generalMainLayout)
         self.setCentralWidget(self.centralWidget)
 
+        # Set top menu bar
+        self.menubar = QMenuBar(self)
+        self.menuData = QMenu(self.menubar)
+        self.setMenuBar(self.menubar)
+        # Create actions
+        self.actionReadData = QAction(self)
+        self.actionWriteData = QAction(self)
+        self.menuData.addAction(self.actionReadData)
+        self.menuData.addAction(self.actionWriteData)
+        self.menubar.addAction(self.menuData.menuAction())
+        # Lable top menu
+        self.labelTopMenuBar()
+
         # Creating particular parts of the GUI
         self.dropDownRegion = DropDownMenu()
         self.inputRegion = InputBoxes()
@@ -25,7 +40,12 @@ class EpoxUi(QMainWindow):
         # Attaching layouts to mainWindoLayout
         self.inputRegion.attachInputBoxes(self.generalMainLayout)
         self.dropDownRegion.attachDropDownMenu(self.generalMainLayout)
-        
+
+    def labelTopMenuBar(self):
+        """Set visible labels for top menu bar."""
+        self.menuData.setTitle("&Source file")
+        self.actionReadData.setText("Read")
+        self.actionWriteData.setText("Write")
 
     def getDropDownMenu(self):
         """Returns the DropDownMenu class"""

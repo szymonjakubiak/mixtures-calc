@@ -18,6 +18,9 @@ class EpoxContrl():
         self.connectAddRemoveButtons()
         self.connectSpinBoxSelector()
         self.connectCancelOk()
+
+        # Show gui
+        self.view.show()
     
     def loadDefaultData(self):
         """Loads default data into model & updates GUI"""
