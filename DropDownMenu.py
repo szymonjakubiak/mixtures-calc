@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QGridLayout
 from PyQt5.QtWidgets import QPushButton, QComboBox
 
 class DropDownMenu():
-    """Class configuring drop-down list and it's features"""
+    """Class configuring drop-down list and its features"""
     def __init__(self):
         """DropDownMenu constructor"""
         # General layout for drop-down area

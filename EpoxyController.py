@@ -52,13 +52,13 @@ class EpoxContrl():
         # Get buttons from DropDownMenu
         dropDownMenu = self.view.getDropDownMenu()
         addButton = dropDownMenu.getAddButton()
-        #removeButton = dropDownMenu.getRemoveButton()
+        removeButton = dropDownMenu.getRemoveButton()
 
         # Connect 'Add' button so it executes Pop-up window
         addButton.clicked.connect(self.dialog.exec)
 
         # Connect 'Remove' button
-        # .............. to be continued ..........
+        removeButton.clicked.connect(self.handleRemoveMixture)
 
     def connectSpinBoxSelector(self):
         """Connects SpinBox selection, so that it builds a new CompInputBoxes"""
@@ -136,6 +136,13 @@ class EpoxContrl():
         # Cleaning
         self.cleanDialogBox()
 
+    def handleRemoveMixture(self):
+        """Removes current mixture from drop-down menu."""
+        # Get drop down menu (QComboBox)
+        dropDown = self.view.getDropDownMenu().getQComboBox()
+        # Delete item at current index
+        dropDown.removeItem(dropDown.currentIndex())
+
     def cleanDialogBox(self):
         """Returns pop-up window to its default shape"""
         # Rebuild CompInputBoxes to its default shape
@@ -144,4 +151,3 @@ class EpoxContrl():
         # Change spin box number to default=2
         spinBox = self.dialog.getSpinBox()
         spinBox.setValue(2)
-

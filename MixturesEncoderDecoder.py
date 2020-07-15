@@ -2,9 +2,15 @@ class MixturesEncoderDecoder():
     """Class for operations on data strings"""
     def __init__(self):
         """Default MixturesEncoderDecoder constructor"""
+        self.defaultRatios = 2*[1.0]
+        self.defaultLabels = ["Empty"]
 
     def decodeString(self, inputText):
         """Decodes a string to data readable by the model"""
+        # Check if empty
+        if inputText == "":
+            return [self.defaultRatios, self.defaultLabels]
+
         # Splitting inputText into parts
         twoPart = inputText.split(' ')
         # Beginning = ratios
