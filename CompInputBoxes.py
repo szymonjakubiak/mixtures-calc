@@ -66,6 +66,13 @@ class CompInputBoxes():
         """Rturns [[nameLineEdit,], [ratioLineEdit,]]"""
         return [self.compNameLineEdits, self.compRatioLineEdits]
 
+    def isAnyInputEmpty(self):
+        """Return 'True' if any QLineEdit is empty."""
+        for ratioEdit, nameEdit in zip(self.compRatioLineEdits, self.compNameLineEdits):
+            if ratioEdit.text() == '' or nameEdit.text() == '':
+                return True
+        return False
+
     def getAllLineEditsData(self):
         """Returns a list [[ratios,], [names,]]"""
         ratiosList = []

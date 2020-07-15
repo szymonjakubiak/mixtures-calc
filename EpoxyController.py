@@ -122,16 +122,17 @@ class EpoxContrl():
 
     def handleDialogOk(self):
         """Load user input into a model and clean pop-up window"""
-        # Get input data entered by a user
-        inputData = self.dialog.getInputBoxes().getAllLineEditsData()
-        # Encode the input
-        encoder = self.model.getEncoder()
-        dataString = encoder.encodeData(inputData[0], inputData[1])
-        # Add encoded data to the end of the drop-down menu
-        dropDownMenu = self.view.getDropDownMenu()
-        comboBox = dropDownMenu.getQComboBox()
-        comboBox.addItem(dataString)
-
+        # Check if input not empty
+        if not self.dialog.getInputBoxes().isAnyInputEmpty():
+            # Get input data entered by a user
+            inputData = self.dialog.getInputBoxes().getAllLineEditsData()
+            # Encode the input
+            encoder = self.model.getEncoder()
+            dataString = encoder.encodeData(inputData[0], inputData[1])
+            # Add encoded data to the end of the drop-down menu
+            dropDownMenu = self.view.getDropDownMenu()
+            comboBox = dropDownMenu.getQComboBox()
+            comboBox.addItem(dataString)
         # Cleaning
         self.cleanDialogBox()
 
