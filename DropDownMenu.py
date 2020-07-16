@@ -55,3 +55,7 @@ class DropDownMenu():
         self.dropQComboBox.clear()
         # Add new entries
         self.dropQComboBox.addItems(textList)
+
+    def appendItems(self, textList):
+        """Append new entries to the drop-down list."""
+        self.dropQComboBox.addItems(textList)

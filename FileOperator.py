@@ -8,6 +8,10 @@ class FileOperator():
 
     def readFromFile(self, fileName='default.dat'):
         """Returns all lines from selected file"""
+        # check if file exists
+        if not os.path.isfile(fileName):
+            return []
+        
         outputList = []
         with open(fileName) as dataFile:
             for line in dataFile:
@@ -17,6 +21,10 @@ class FileOperator():
 
     def saveToFile(self, linesList, fileName='default_out.dat'):
         """Writes lines to a file"""
+        # check if fileName is empty
+        if fileName == "" or fileName == ".dat":
+            return
+
         with open(fileName, 'w') as outputFile:
             # Write every line from a linesList
             for line in linesList:

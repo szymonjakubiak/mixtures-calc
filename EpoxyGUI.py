@@ -41,12 +41,6 @@ class EpoxUi(QMainWindow):
         self.inputRegion.attachInputBoxes(self.generalMainLayout)
         self.dropDownRegion.attachDropDownMenu(self.generalMainLayout)
 
-    def labelTopMenuBar(self):
-        """Set visible labels for top menu bar."""
-        self.menuData.setTitle("&Source file")
-        self.actionReadData.setText("Read")
-        self.actionWriteData.setText("Write")
-
     def getDropDownMenu(self):
         """Returns the DropDownMenu class"""
         return self.dropDownRegion
@@ -54,3 +48,13 @@ class EpoxUi(QMainWindow):
     def getInputBoxes(self):
         """Returns the InputBoxes class"""
         return self.inputRegion
+
+    def getReadWriteActions(self):
+        """Return read and write QActions."""
+        return (self.actionReadData, self.actionWriteData)
+
+    def labelTopMenuBar(self):
+        """Set visible labels for top menu bar."""
+        self.menuData.setTitle("&Source file")
+        self.actionReadData.setText("Read")
+        self.actionWriteData.setText("Write")

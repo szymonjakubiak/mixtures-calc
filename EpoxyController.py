@@ -1,4 +1,5 @@
 from functools import partial
+from PyQt5.QtWidgets import QFileDialog
 
 from FileOperator import FileOperator
 
@@ -18,6 +19,7 @@ class EpoxContrl():
         self.connectAddRemoveButtons()
         self.connectSpinBoxSelector()
         self.connectCancelOk()
+        self.connectTopMenuBar()
 
         # Show gui
         self.view.show()
@@ -77,6 +79,12 @@ class EpoxContrl():
         self.dialog.accepted.connect(self.handleDialogOk)
         # Connect 'Cancel'
         self.dialog.rejected.connect(self.handleDialogCancel)
+
+    def connectTopMenuBar(self):
+        """Connects top menu bar and its actions to proper slots."""
+        actionRead, actionWrite = self.view.getReadWriteActions()
+        actionRead.triggered.connect(self.handleReadAction)
+        actionWrite.triggered.connect(self.handleWriteAction)
 
     def handleTextEditOnIndex(self, lineEdit, widgetIndex, numberOfWidgets):
         """When specific lineEdit is triggered, generate and set output for other widgets"""
@@ -154,3 +162,22 @@ class EpoxContrl():
         # Change spin box number to default=2
         spinBox = self.dialog.getSpinBox()
         spinBox.setValue(2)
+
+    def handleReadAction(self):
+        """Load mixtures from file to drop-down menu (QComboBox)."""
+        # Reading data from file
+        fileName, _ = QFileDialog.getOpenFileName(self.view, "Select source file", "", "Mixtures data (*.dat);;All Files (*)")
+        mixtures = self.fileOperator.readFromFile(fileName)
+        # Appending data to QComboBox
+        self.view.getDropDownMenu().appendItems(mixtures)
+
+    def handleWriteAction(self):
+        """Write all items(strings) from drop-down menu (QComboBox) to given file."""
+        # Getting data-strings from QComboBox
+        comboBox = self.view.getDropDownMenu().getQComboBox()
+        dataStrings = [comboBox.itemText(index) for index in range(comboBox.count())]
+        # Writing data to selected file
+        fileName, _ = QFileDialog.getSaveFileName(self.view, "Select save location", "", "Mixtures data (*.dat);;All Files (*)")
+        if fileName[-4:] != ".dat": # maintain '.dat' convention for new files
+            fileName += ".dat"
+        self.fileOperator.saveToFile(dataStrings, fileName)
