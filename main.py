@@ -1,21 +1,17 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 
-from EpoxyGUI import EpoxUi
-from EpoxyController import EpoxContrl
-from EpoxyModel import EpoxMod
-from PopUpMixtureUi import PopUpMixtureUi
-
+from lib import EpoxyGUI, EpoxyController, EpoxyModel, PopUpMixtureUi
 
 def main():
     """Main function"""
     # Create an instance of QApplication, EpoxUi, PopUpMixtureUi
     application = QApplication(sys.argv)
-    viewGui = EpoxUi()
-    dialogGui = PopUpMixtureUi()
+    viewGui = EpoxyGUI.EpoxUi()
+    dialogGui = PopUpMixtureUi.PopUpMixtureUi()
     # Create instances of the model and the controller
-    modelEpoxy = EpoxMod()
-    guiController = EpoxContrl(argModel=modelEpoxy, argView=viewGui, argDialog=dialogGui)
+    modelEpoxy = EpoxyModel.EpoxMod()
+    guiController = EpoxyController.EpoxContrl(argModel=modelEpoxy, argView=viewGui, argDialog=dialogGui)
     guiController.loadDefaultData()
     # Execute app's main loop
     sys.exit(application.exec())

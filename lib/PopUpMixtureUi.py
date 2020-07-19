@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QSpinBox, QDialogButtonBox
 
-from CompInputBoxes import CompInputBoxes
+from .CompInputBoxes import CompInputBoxes
 
 class PopUpMixtureUi (QDialog):
     """Class handling a constrution of the pop-up dialog window"""

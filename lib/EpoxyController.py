@@ -1,7 +1,7 @@
 from functools import partial
 from PyQt5.QtWidgets import QFileDialog
 
-from FileOperator import FileOperator
+from .FileOperator import FileOperator
 
 class EpoxContrl():
     """EpoxyApp Controller Class"""

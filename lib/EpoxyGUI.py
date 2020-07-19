@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QMenuBar, QMenu
 from PyQt5.QtWidgets import QAction
 
-from DropDownMenu import DropDownMenu
-from InputBoxes import InputBoxes
+from .DropDownMenu import DropDownMenu
+from .InputBoxes import InputBoxes
 
 class EpoxUi(QMainWindow):
     """GUI for EpoxyApp"""
@@ -12,7 +12,7 @@ class EpoxUi(QMainWindow):
         """Initiates an instance of EpoxUi - GUI for 'Epoxy Calculator' app"""
         super().__init__()
         # Set main window's properties
-        self.setWindowTitle('Epoxy Calculator')
+        self.setWindowTitle('Mix Calculator')
 
         # Set the central widget
         self.generalMainLayout = QVBoxLayout() # main layout instance

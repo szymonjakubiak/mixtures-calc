@@ -1,4 +1,4 @@
-from MixturesEncoderDecoder import MixturesEncoderDecoder
+from .MixturesEncoderDecoder import MixturesEncoderDecoder
 
 class EpoxMod():
 
