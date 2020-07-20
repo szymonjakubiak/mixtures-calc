@@ -9,7 +9,7 @@ def main():
     application = QApplication(sys.argv)
     viewGui = EpoxyGUI.EpoxUi()
     dialogGui = PopUpMixtureUi.PopUpMixtureUi()
-    # Create instances of the model and the controller
+    # Create instances of model and controller
     modelEpoxy = EpoxyModel.EpoxMod()
     guiController = EpoxyController.EpoxContrl(argModel=modelEpoxy, argView=viewGui, argDialog=dialogGui)
     guiController.loadDefaultData()
