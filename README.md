@@ -24,14 +24,14 @@ This version supports the following features for its users:
 
 ## How does the app look like
 
-Calculating correct epoxy-hardener mix for composites enthusiast:
-[Mix calculation](img/mix1.png)
+Calculating correct epoxy-hardener mix for composites enthusiast:<br>
+![Mix calculation](img/mix1.png)
 
-After hard work with composites we can add a new mixture:
-[Adding mixture](img/add_mix.png)
+After hard work with composites we can add a new mixture:<br>
+![Adding mixture](img/add_mix.png)
 
-Finally, archiving mixtures for future use:
-[Saving to file](img/save_mix.png)
+Finally, archiving mixtures for future use:<br>
+![Saving to file](img/save_mix.png)
 
 ## Under the hood
 
@@ -39,4 +39,4 @@ Code structure was inspired by model-view-controller design pattern. In my imple
 All actions triggerd by UI are handled by controller which is resposible for managing flow between model and view.
 Attached below UML class diagram can give more insight into code structure.
 
-[UML class diagram](img/uml_class.png)
+![UML class diagram](img/uml_class.png)
